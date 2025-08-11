@@ -12,7 +12,7 @@ public:
     QString getProductID();
     int getProductPrice();
     QString getProductCategory();
-    int getProductQauntity();
+    int getProductQuantity();
 
 private:
     QString m_productName;

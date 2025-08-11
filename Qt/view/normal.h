@@ -4,6 +4,7 @@
 #include "normalchatform.h"
 #include "normalorderform.h"
 #include "normalorderverifyform.h"
+
 #include <QMainWindow>
 class NormalController;
 

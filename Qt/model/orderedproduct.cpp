@@ -24,6 +24,6 @@ QString OrderedProduct::getProductCategory() {
     return m_productCategory;
 }
 
-int OrderedProduct::getProductQauntity() {
+int OrderedProduct::getProductQuantity() {
     return m_productQuantity;
 }

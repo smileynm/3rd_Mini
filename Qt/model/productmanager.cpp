@@ -12,6 +12,7 @@ ProductManager& ProductManager::getInstance() {
 
 ProductManager::ProductManager() {
     qDebug() << QObject::tr("ProductManager created.");
+
 }
 
 ProductManager::~ProductManager() {
@@ -52,6 +53,18 @@ bool ProductManager::registerOrderedItems(OrderedProduct* product, const QString
     }
     orderedItemMap[productID] = product;
     qDebug() << QObject::tr("Product ordered: %1 %2").arg(product->getProductName()).arg(product->getProductID());
+
+    return true;
+}
+
+bool ProductManager::registerQrProducts(QrProduct* product, const QString& productID) {
+    if (qrProduct.count(productID)) {
+        qDebug() << QObject::tr("Error: Already exist Product");
+        return false;
+    }
+    qrProduct[productID] = product;
+    qDebug() << QObject::tr("Product ordered: %1 %2").arg(product->getProductName()).arg(product->getProductId());
+
     return true;
 }
 
@@ -137,6 +150,15 @@ Product* ProductManager::findProductByName(const QString& productName) {
     return nullptr;
 }
 
+
+ Product* ProductManager::findProductByID(const QString& productId) {
+    auto it = productsByID.find(productId);
+    if (it != productsByID.end()) {
+        return it.value();
+    }
+    return nullptr;
+}
+
 const QMap<QString, Product*>& ProductManager::getProductMap() const {
     return productsByID;
 }
@@ -144,3 +166,48 @@ const QMap<QString, Product*>& ProductManager::getProductMap() const {
 const QMap<QString, OrderedProduct*>& ProductManager::getOrderedProductMap() const {
     return orderedProducts;
 }
+
+const QMap<QString, QrProduct*>& ProductManager::getQrProductMap() const {
+    return qrProduct;
+}
+
+
+void ProductManager::receiveQrData(const QByteArray& Qrdata)
+{
+    QString productId = QString::fromUtf8(Qrdata).trimmed();
+    qDebug()<<"id 받아서 Qr map에 추가 로직 진행, 받은 Id: " <<productId;
+
+    if(qrProduct.contains(productId)){
+         QrProduct* qty = qrProduct.value(productId);
+         int currentQty = qty->getProductQuantity();
+         qty->setProductQuantity(currentQty+1);
+         qDebug()<<"중복 id -> 개수증가" << qty->getProductQuantity();
+         emit updateQrMap();
+
+    } else if(!qrProduct.contains(productId) && productsByID.contains(productId)){
+        Product* baseProduct = productsByID.value(productId);
+        QrProduct* newProduct = new QrProduct(
+            baseProduct->getProductID(),
+            baseProduct->getProductName(),
+            baseProduct->getProductPrice(),
+            baseProduct->getProductCategory(),
+            1 // 수량은 1로 시작
+            );
+
+        qrProduct.insert(productId, newProduct);
+        qDebug() << " 기본 정보 복사하여 QR 상품 등록:" << productId;
+        emit updateQrMap();
+        return;
+
+    } else {
+        qDebug() <<"제품 정보 없음";
+    }
+
+}
+
+
+
+
+
+
+

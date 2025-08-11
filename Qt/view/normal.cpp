@@ -13,11 +13,11 @@ Normal::Normal(QWidget *parent)
     m_normalChatForm = new NormalChatForm(this);
     m_normalOrderForm = new NormalOrderForm(this);
     m_normalOrderVerifyForm = new NormalOrderVerifyForm(this);
+
     // tab에 객체 추가
     ui->tabWidget->addTab(m_normalChatForm, tr("채팅서버"));
     ui->tabWidget->addTab(m_normalOrderForm, tr("발주관리"));
     ui->tabWidget->addTab(m_normalOrderVerifyForm, tr("수량확인"));
-
 }
 
 Normal::~Normal() {

@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="orderButton">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>320</y>
-     <width>80</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>발 주</string>
-   </property>
-  </widget>
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
@@ -123,7 +110,7 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QTableWidget" name="orderWidget">
+  <widget class="QTableWidget" name="qrWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -143,7 +130,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="beveraageTool">
     <property name="geometry">
@@ -236,6 +223,39 @@
      <string>전체</string>
     </attribute>
    </widget>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>320</y>
+     <width>171</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTextEdit" name="log"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="connect">
+        <property name="text">
+         <string>리더기 연결</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="disconnect">
+        <property name="text">
+         <string>연결 종료</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
